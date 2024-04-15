@@ -4,6 +4,8 @@ import string
 
 #price, quantity
 
+def __init__ (self):
+    self.example_dict = {"AMETHYSTS": 10000, "STARFRUIT": 5000}
 class Trader:
     
     def run(self, state: TradingState):
@@ -12,26 +14,31 @@ class Trader:
 
 				# Orders to be placed on exchange matching engine 
         result = {}
+        #we should use incorporate
         for product in state.order_depths:
-            order_depth: OrderDepth = state.order_depths[product]
-            orders: List[Order] = [] #ORDERS GO HERE
-            
-            acceptable_price = 10  # Participant should calculate this value
-            print("Acceptable price : " + str(acceptable_price))
-            print("Buy Order depth : " + str(len(order_depth.buy_orders)) + ", Sell order depth : " + str(len(order_depth.sell_orders)))
-    
-            if len(order_depth.sell_orders) != 0:
-                best_ask, best_ask_amount = list(order_depth.sell_orders.items())[0]
-                if int(best_ask) < acceptable_price:
-                    print("BUY", str(-best_ask_amount) + "x", best_ask)
-                    orders.append(Order(product, best_ask, -best_ask_amount))
-    
-            if len(order_depth.buy_orders) != 0:
-                best_bid, best_bid_amount = list(order_depth.buy_orders.items())[0]
-                if int(best_bid) > acceptable_price:
-                    print("SELL", str(best_bid_amount) + "x", best_bid)
-                    orders.append(Order(product, best_bid, -best_bid_amount))
-            
+            if product == "AMETHYSTS":
+              
+              order_depth: OrderDepth = state.order_depths[product]
+              orders: List[Order] = [] #ORDERS GO HERE
+              
+              acceptable_price = 10000  # Participant should calculate this value
+              print("Acceptable price : " + str(acceptable_price))
+              print("Buy Order depth : " + str(len(order_depth.buy_orders)) + ", Sell order depth : " + str(len(order_depth.sell_orders)))
+      
+              if len(order_depth.sell_orders) != 0:
+                  best_ask, best_ask_amount = list(order_depth.sell_orders.items())[0]
+                  if int(best_ask) < acceptable_price:
+                      print("BUY", str(-best_ask_amount) + "x", best_ask)
+                      orders.append(Order(product, best_ask, -best_ask_amount))
+      
+              if len(order_depth.buy_orders) != 0:
+                  best_bid, best_bid_amount = list(order_depth.buy_orders.items())[0]
+                  if int(best_bid) > acceptable_price:
+                      print("SELL", str(best_bid_amount) + "x", best_bid)
+                      orders.append(Order(product, best_bid, -best_bid_amount))
+
+              if product == "STARFRUIT":
+                  print("ok")
             result[product] = orders
     
 		    # String value holding Trader state data required. 
